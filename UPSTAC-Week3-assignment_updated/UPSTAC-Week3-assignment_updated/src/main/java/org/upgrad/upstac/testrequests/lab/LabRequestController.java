@@ -65,17 +65,10 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTester()  {
 
+         // object of User class and store the current logged in user
           User user = userLoggedInService.getLoggedInUser();
+          //list of test requests assigned to current tester
           return testRequestQueryService.findByTester(user);
-        // Implement This Method
-
-        // Create an object of User class and store the current logged in user first
-        //Implement this method to return the list of test requests assigned to current tester(make use of the above created User object)
-        //Make use of the findByTester() method from testRequestQueryService class
-        // For reference check the method getForTests() method from LabRequestController class
-
-       // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented"); // replace this line with your code
-
 
     }
 
@@ -83,8 +76,6 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForLabTest(@PathVariable Long id) {
-
-
 
         User tester =userLoggedInService.getLoggedInUser();
 
@@ -99,7 +90,6 @@ public class LabRequestController {
 
             User tester=userLoggedInService.getLoggedInUser();
             return testRequestUpdateService.updateLabTest(id,createLabResult,tester);
-
 
         } catch (ConstraintViolationException e) {
             throw asConstraintViolation(e);
